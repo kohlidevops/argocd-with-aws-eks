@@ -1,18 +1,18 @@
-# argocd-with-aws-eks
+# To deploy an Application on Amazon Elastic Kubernetes Service Cluster using ArgoCD tool
 
-# Create IAM Role for AWS EKS Cluster
+## Create IAM Role for AWS EKS Cluster
 
 Trusted Entity Type - EKS-Cluster
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/3cbf3bfa-b80c-4e98-8712-57a60b1bf46f)
 
-# Create IAM Role for EKS Nodegroup
+## Create IAM Role for EKS Nodegroup
 
 Trusted Entity Type - EC2
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/dbe5c164-81fa-4407-8545-0fa42b066054)
 
-# Create EKS Cluster
+## Create EKS Cluster
 
 Navigate to AWS EKS Console - Create Cluster and assign EKS-Cluster IAM Role
 
@@ -32,7 +32,7 @@ I leave as default for other configurations and next to create a Cluster. It wil
 
 Now, EKS Cluster has been created.
 
-# Create a Node group for EKS Cluster
+## Create a Node group for EKS Cluster
 
 After creation of EKS Cluster, Select your cluster and choose Add Node group
 
@@ -58,7 +58,7 @@ This (Worker Node) will take some times to up and running.
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/6ff1b81e-aaea-4192-875e-bd5494caaf09)
 
-# To Setup a GitOps ArgoCD to deploy containers on EKS
+## To Setup a GitOps ArgoCD to deploy containers on EKS
 
 To open the AWS Cloudshell with new tab and set the EKS context by following command.
 
@@ -103,7 +103,7 @@ Below command will export the hostname of the Load balancer to the variable call
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/966e72de-a404-4d0a-8e79-999a36379fb3)
 
-# To login ArgoCD
+## To login ArgoCD
 
 In order to access the ArgoCD web UI,you have to extract the password for the initial admin user of ArgoCD, decode it from base64 encoding, and store it in an environment variable named ARGO_PWD.
 
@@ -141,7 +141,9 @@ Configure as below in images
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/14e568c8-5de1-4e06-88e6-95eb0c168581)
 
-Source would be
+Source would be 
+
+Path -> manifests -> In repo where my yaml files located. Please change the path as per your needs.
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/42e9f8c2-0ef3-4f62-a149-32a535164866)
 
@@ -170,3 +172,6 @@ This is my image name which is stored in my docker hub
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/0a0e7a5d-4ea6-44a0-90da-b06c816d29c7)
 
+You can also change image version or new image in the yaml file - Then automatically sync with ArgoCD and deploy the new image on the EKS worker node.
+
+Perfect! Please clean up the resources.
