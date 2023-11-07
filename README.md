@@ -1,5 +1,9 @@
 # To deploy an Application on Amazon Elastic Kubernetes Service Cluster using ArgoCD tool
 
+## For this deployment I have used below Github repository
+
+        https://github.com/kohlidevops/argocd-tetris.git
+        
 ## Create IAM Role for AWS EKS Cluster
 
 Trusted Entity Type - EKS-Cluster
