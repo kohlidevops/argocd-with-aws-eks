@@ -62,19 +62,19 @@ This (Worker Node) will take some times to up and running.
 
 To open the AWS Cloudshell with new tab and set the EKS context by following command.
 
-  aws eks update-kubeconfig --name EKS_CLUSTER_NAME --region CLUSTER_REGION
+    aws eks update-kubeconfig --name EKS_CLUSTER_NAME --region CLUSTER_REGION
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/37e439fc-38b6-43e9-9b98-db32b27190d3)
 
 To check the nodes
 
-  kubectl get nodes
+    kubectl get nodes
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/5c9f5b98-38b8-47c9-9452-4ca8f99ee721)
 
 Lets check the pods - You wont see anything
 
-  kubectl get pods
+    kubectl get pods
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/ebb678ea-46a5-4631-8970-893bb1bdba8a)
 
@@ -82,14 +82,14 @@ Now we have to Install ArgoCD
 
 All the components could be installed using a manifest file which is provided by ArgoCD project - To use below commands to acheive.
 
-  kubectl create namespace argocd
-  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml
+    kubectl create namespace argocd
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/717858a4-1120-4b97-b327-78ff5e2a2c81)
 
 By default, ArgoCD is not publicly exposed. So we have to create a Load balancer to make it available publicly.
 
-  kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/2f22735f-9f39-42c7-9a37-23d937650025)
 
@@ -99,7 +99,7 @@ As a result, One load balancer has been created. If you access the DNS URL of th
 
 Below command will export the hostname of the Load balancer to the variable called "ARGOCD_SERVER" - It may use for programmatic access.
 
-  export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'`
+    export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'`
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/966e72de-a404-4d0a-8e79-999a36379fb3)
 
@@ -107,15 +107,15 @@ Below command will export the hostname of the Load balancer to the variable call
 
 In order to access the ArgoCD web UI,you have to extract the password for the initial admin user of ArgoCD, decode it from base64 encoding, and store it in an environment variable named ARGO_PWD.
 
-  export ARGO_PWD=`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
-  echo $ARGO_PWD
+    export ARGO_PWD=`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
+    echo $ARGO_PWD
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/3dae25c9-4bd7-4bce-9ed4-62f103a3b4f1)
 
 Just copy the password and access the ArgoCD web UI to login
 
-  username - admin
-  password - -yVw5Eha9LfMfMnS
+    username - admin
+    password - -yVw5Eha9LfMfMnS
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/9720ae9d-33c4-4ffe-b8ef-abad6070e9b3)
 
@@ -167,8 +167,8 @@ I have changed my docker image in my repo which contains Netflix clone page.
 
 This is my image name which is stored in my docker hub
 
-  latchudevops/netflix
-  docker push latchudevops/netflix:latest
+    latchudevops/netflix
+    docker push latchudevops/netflix:latest
 
 ![image](https://github.com/kohlidevops/argocd-with-aws-eks/assets/100069489/0a0e7a5d-4ea6-44a0-90da-b06c816d29c7)
 
